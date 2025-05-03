@@ -49,20 +49,18 @@ lib/
 │
 ├── feature/
 │ ├── auth/ # Fitur otentikasi (Firebase Auth)
-│ │ ├── data/
-│ │ ├── domain/
-│ │ └── presentation/bloc/
+│ │ ├── data/ # Data layer (repository, data sources)
+│ │ ├── domain/ # Domain layer (use cases, entities)
+│ │ └── presentation/bloc/ # Presentation layer (BLoC, UI state management)
 │
 │ └── home/ # Fitur utama (task & profile)
-│ ├── data/
-│ ├── domain/
-│ └── presentation/
-│ ├── bloc/
-│ └── pages/
+│ ├── data/ # Data layer (repository, data sources)
+│ ├── domain/ # Domain layer (use cases, entities)
+│ └── presentation/ # Presentation layer (BLoC, UI)
+│ ├── bloc/ # BLoC logic for state management
+│ └── pages/ # UI pages/screens
 │
 └── main.dart # Entry point aplikasi
-
----
 
 ## 🧪 Teknologi & Library
 
