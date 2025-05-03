@@ -7,7 +7,6 @@ import '../../home/presentation/pages/task_form_page.dart';
 import '../../auth/presentation/bloc/auth_bloc.dart';
 import '../presentation/pages/main_screen.dart';
 import '../presentation/pages/splash_screen.dart';
-import '../../home/presentation/pages/profile_page.dart';
 import '../../auth/presentation/pages/login_page.dart';
 import '../../auth/presentation/pages/register_page.dart';
 import '../injection.dart' as di;
@@ -35,8 +34,6 @@ class AppRouter {
                 );
               case AppRoutes.main:
                 return MainScreen(locator: di.locator);
-              case AppRoutes.profile:
-                return ProfilePage(locator: di.locator);
               case AppRoutes.taskForm:
                 final task = settings.arguments as Task?;
                 return BlocProvider(

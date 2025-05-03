@@ -72,4 +72,21 @@ class DatabaseHelper {
     final result = await db.query(_tableName);
     return result.map((e) => TaskTable.fromMap(e)).toList();
   }
+
+  Future<void> deleteDatabaseFile() async {
+    final path = join(await getDatabasesPath(), 'task.db');
+
+    _database = null;
+    await deleteDatabase(path);
+  }
+
+  Future<void> restoreFromCloudBackup(List<TaskTable> tasks) async {
+    final db = await database;
+
+    await db.delete(_tableName);
+
+    for (var task in tasks) {
+      await db.insert(_tableName, task.toMap());
+    }
+  }
 }

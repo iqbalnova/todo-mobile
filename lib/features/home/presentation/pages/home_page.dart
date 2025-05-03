@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:todoapp/features/home/domain/entities/task.dart';
+import '../../../core/common/db/database_helper.dart';
 import '../../../core/common/utils.dart';
 import '../../../core/routes/app_routes.dart';
+import '../../data/models/task_table.dart';
+import '../../domain/usecases/get_all_tasks.dart';
 import '../bloc/task/task_bloc.dart';
 import '../bloc/task/task_event.dart';
 import '../bloc/task/task_state.dart';
@@ -23,6 +28,7 @@ class _HomePageState extends State<HomePage> with RouteAware {
   void initState() {
     super.initState();
     _fetchTasks();
+    _restoreFromCloudIfNeeded();
   }
 
   @override
@@ -90,6 +96,87 @@ class _HomePageState extends State<HomePage> with RouteAware {
 
   void _navigateToTaskForm() {
     Navigator.pushNamed(context, AppRoutes.taskForm);
+  }
+
+  Future<void> _restoreFromCloudIfNeeded() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final uid = user.uid;
+
+    final GetAllTasks getAllTasks = widget.locator<GetAllTasks>();
+    final localTasksResult = await getAllTasks.execute();
+    final localTasks = localTasksResult.getOrElse(() => []);
+
+    // Only restore if local is empty
+    if (localTasks.isNotEmpty) return;
+
+    try {
+      final backupDoc =
+          await FirebaseFirestore.instance.collection('backups').doc(uid).get();
+
+      if (!backupDoc.exists) return;
+
+      final data = backupDoc.data();
+      final taskMaps = data?['someLocalData']?['tasks'];
+      final timestamp = data?['timestamp'];
+
+      // Format timestamp if it exists
+      final lastBackupTime =
+          timestamp is Timestamp
+              ? DateFormat('MMM dd, yyyy HH:mm').format(timestamp.toDate())
+              : 'Unknown';
+
+      if (taskMaps is! List) return;
+
+      final confirmed = await _showRestoreDialog(lastBackupTime);
+      if (!confirmed) return;
+
+      final taskTables =
+          taskMaps.map<TaskTable>((e) {
+            return TaskTable.fromMap(Map<String, dynamic>.from(e));
+          }).toList();
+
+      final dbHelper = widget.locator<DatabaseHelper>();
+      await dbHelper.restoreFromCloudBackup(taskTables);
+
+      _fetchTasks();
+    } catch (e) {
+      debugPrint('Error during cloud restore: $e');
+    }
+  }
+
+  Future<bool> _showRestoreDialog(String lastBackupTime) async {
+    return await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Restore from Cloud?'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('We found a cloud backup.'),
+              const SizedBox(height: 8),
+              Text('Last backup: $lastBackupTime'),
+              const SizedBox(height: 8),
+              const Text('Do you want to restore it to your local device?'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Yes, Restore'),
+            ),
+          ],
+        );
+      },
+    ).then((value) => value ?? false);
   }
 
   @override
