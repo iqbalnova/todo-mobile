@@ -79,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
             );
           } else if (state is Authenticated) {
             // Navigate to home page or dashboard
-            Navigator.pushNamed(context, AppRoutes.main);
+            Navigator.pushReplacementNamed(context, AppRoutes.main);
             Fluttertoast.showToast(
               msg: "Registration successful!",
               toastLength: Toast.LENGTH_SHORT,
