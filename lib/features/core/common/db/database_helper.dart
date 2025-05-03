@@ -1,9 +1,10 @@
 // lib/data/datasources/task_database_helper.dart
 import 'dart:async';
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
 
 import '../../../home/data/models/task_table.dart';
+import 'encryption_helper.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -35,6 +36,7 @@ class DatabaseHelper {
           )
         ''');
       },
+      password: EncryptionHelper.encrypt('password123'),
     );
   }
 
