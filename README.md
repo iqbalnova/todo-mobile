@@ -42,26 +42,28 @@ Todo App adalah aplikasi manajemen tugas sederhana berbasis Flutter yang dibangu
 
 ```
 lib/
-├── core/
-│ ├── common/ # Helper global (DatabaseHelper, ThemeHelper, dll)
-│ ├── router/ # Konfigurasi routing
-│ ├── splash/ # Splash screen
-│ └── main_screen/ # Shell & layout utama
-│
 ├── feature/
-│ ├── auth/ # Fitur otentikasi (Firebase Auth)
-│ │ ├── data/ # Data layer (repository, data sources)
-│ │ ├── domain/ # Domain layer (use cases, entities)
-│ │ └── presentation/bloc/ # Presentation layer (BLoC, UI state management)
-│
-│ └── home/ # Fitur utama (task & profile)
-│ ├── data/ # Data layer (repository, data sources)
-│ ├── domain/ # Domain layer (use cases, entities)
-│ └── presentation/ # Presentation layer (BLoC, UI)
-│ ├── bloc/ # BLoC logic for state management
-│ └── pages/ # UI pages/screens
-│
-└── main.dart # Entry point aplikasi
+│ ├── core/                  # Modul inti, termasuk dependency injection
+│ │ ├── common/              # Helper global (DatabaseHelper, ThemeHelper, dll)
+│ │ ├── router/              # Konfigurasi routing
+│ │ ├── splash/              # Splash screen
+│ │ ├── main_screen/         # Shell & layout utama
+│ │ └── injection.dart       # Dependency Injection menggunakan GetIt
+│ │
+│ ├── auth/                  # Fitur otentikasi (Firebase Auth)
+│ │ ├── router/              # Konfigurasi routing untuk auth
+│ │ ├── common/              # Helper untuk auth
+│ │ ├── app.dart             # Komponen utama untuk auth
+│ │ └── injection.dart       # Dependency Injection untuk auth
+│ │
+│ └── home/                  # Fitur utama (task & profile)
+│ ├── data/                  # Data layer (repository, data sources)
+│ ├── domain/                # Domain layer (use cases, entities)
+│ ├── presentation/          # Presentation layer (BLoC, UI)
+│ │ ├── bloc/                # BLoC logic for state management
+│ │ └── pages/               # UI pages/screens
+│ └── injection.dart         # Dependency Injection untuk home
+└── main.dart                # Entry point aplikasi
 ```
 
 ## 🧪 Teknologi & Library
