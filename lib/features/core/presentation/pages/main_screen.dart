@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:todoapp/features/home/presentation/bloc/task/task_bloc.dart';
-import 'package:todoapp/features/home/presentation/pages/profile_page.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../home/presentation/bloc/task/task_bloc.dart';
+import '../../../home/presentation/pages/profile_page.dart';
 
 import '../../../home/presentation/pages/home_page.dart';
 import '../../common/styles.dart';
@@ -39,7 +40,10 @@ class _MainScreenState extends State<MainScreen> {
           child: HomePage(locator: widget.locator),
         );
       case 1:
-        return ProfilePage(locator: widget.locator);
+        return BlocProvider(
+          create: (context) => widget.locator<AuthBloc>(),
+          child: ProfilePage(locator: widget.locator),
+        );
       default:
         return const OnDevScreen();
     }
