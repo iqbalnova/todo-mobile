@@ -62,7 +62,7 @@ lib/
 │ ├── presentation/          # Presentation layer (BLoC, UI)
 │ │ ├── bloc/                # BLoC logic for state management
 │ │ └── pages/               # UI pages/screens
-│ └── injection.dart         # Dependency Injection untuk home
+│
 └── main.dart                # Entry point aplikasi
 ```
 
@@ -99,19 +99,23 @@ flutter run
 Here are the screenshots of the app:
 
 <p float="left">
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(1).png" alt="Screenshot 1" width="250" />
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(2).png" alt="Screenshot 2" width="250" /> 
   <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(3).png" alt="Screenshot 3" width="250" />
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(2).png" alt="Screenshot 2" width="250" /> 
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(8).png" alt="Screenshot 8" width="250" />
 </p>
 
 <p float="left">
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(4).png" alt="Screenshot 4" width="250" />
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(5).png" alt="Screenshot 5" width="250" />
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(9).png" alt="Screenshot 9" width="250" />
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(7).png" alt="Screenshot 7" width="250" />
   <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(6).png" alt="Screenshot 6" width="250" />
 </p>
 
 <p float="left">
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(7).png" alt="Screenshot 7" width="250" />
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(8).png" alt="Screenshot 8" width="250" />
-  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(9).png" alt="Screenshot 9" width="250" />
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(10).png" alt="Screenshot 10" width="250" />
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(5).png" alt="Screenshot 5" width="250" />
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(4).png" alt="Screenshot 4" width="250" />
+</p>
+
+<p float="left">
+  <img src="https://github.com/iqbalnova/todo-mobile/blob/main/public/todo%20(1).png" alt="Screenshot 1" width="250" />
 </p>
